@@ -54,8 +54,12 @@ for server in servers:
     print(f"连接到 {host}...")
 
     # 检测服务是否运行，未运行远程启动
-    res = requests.get(weburl)
-    if res.status_code == 429:
+    try:
+        res = requests.get(weburl, timeout=30)
+        print(res.status_code)
+        summary_message = f"{weburl} 上的服务正在运行，状态码：{res.status_code}"
+    except requests.exceptions.Timeout:
+        print("服务未运行")
 
         # 执行恢复命令（这里假设使用 SSH 连接和密码认证）
         restore_command = f"sshpass -p '{password}' ssh -o StrictHostKeyChecking=no -p {port} {username}@{host} '{cron_command}'"
