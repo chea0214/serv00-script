@@ -3,6 +3,7 @@ import json
 import subprocess
 import requests
 
+
 def send_telegram_message(token, chat_id, message):
     telegram_url = f"https://api.telegram.org/bot{token}/sendMessage"
     telegram_payload = {
@@ -19,6 +20,7 @@ def send_telegram_message(token, chat_id, message):
         print("发送 Telegram 消息失败")
     else:
         print("发送 Telegram 消息成功")
+
 
 # 从环境变量中获取密钥
 accounts_json = os.getenv('ACCOUNTS_JSON')
@@ -42,6 +44,7 @@ default_restore_command = "cd ~/domains/$USER.serv00.net/vless && ./check_vless.
 
 # 遍历服务器列表并执行恢复操作
 for server in servers:
+    weburl = server['weburl']
     host = server['host']
     port = server['port']
     username = server['username']
@@ -50,13 +53,17 @@ for server in servers:
 
     print(f"连接到 {host}...")
 
-    # 执行恢复命令（这里假设使用 SSH 连接和密码认证）
-    restore_command = f"sshpass -p '{password}' ssh -o StrictHostKeyChecking=no -p {port} {username}@{host} '{cron_command}'"
-    try:
-        output = subprocess.check_output(restore_command, shell=True, stderr=subprocess.STDOUT)
-        summary_message += f"\n成功恢复 {host} 上的 vless 服务：\n{output.decode('utf-8')}"
-    except subprocess.CalledProcessError as e:
-        summary_message += f"\n无法恢复 {host} 上的 vless 服务：\n{e.output.decode('utf-8')}"
+    # 检测服务是否运行，未运行远程启动
+    res = requests.get(weburl)
+    if res.status_code == 429:
+
+        # 执行恢复命令（这里假设使用 SSH 连接和密码认证）
+        restore_command = f"sshpass -p '{password}' ssh -o StrictHostKeyChecking=no -p {port} {username}@{host} '{cron_command}'"
+        try:
+            output = subprocess.check_output(restore_command, shell=True, stderr=subprocess.STDOUT)
+            summary_message += f"\n成功恢复 {host} 上的 vless 服务：\n{output.decode('utf-8')}"
+        except subprocess.CalledProcessError as e:
+            summary_message += f"\n无法恢复 {host} 上的 vless 服务：\n{e.output.decode('utf-8')}"
 
 # 发送汇总消息到 Telegram
 send_telegram_message(telegram_token, telegram_chat_id, summary_message)
