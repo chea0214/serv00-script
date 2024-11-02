@@ -57,7 +57,7 @@ for server in servers:
     try:
         res = requests.get(weburl, timeout=30)
         print(res.status_code)
-        summary_message = f"{weburl} 上的服务正在运行，状态码：{res.status_code}"
+        # summary_message = f"{weburl} 上的服务正在运行，状态码：{res.status_code}"
     except requests.exceptions.ConnectionError:
         print("服务未运行")
 
@@ -70,4 +70,5 @@ for server in servers:
             summary_message += f"\n无法恢复 {host} 上的 vless 服务：\n{e.output.decode('utf-8')}"
 
 # 发送汇总消息到 Telegram
-send_telegram_message(telegram_token, telegram_chat_id, summary_message)
+if summary_message != "":
+    send_telegram_message(telegram_token, telegram_chat_id, summary_message)
