@@ -54,10 +54,6 @@
     - `TELEGRAM_TOKEN`：他们的 Telegram Bot API Token。
     - `TELEGRAM_CHAT_ID`：他们的 Telegram Chat ID。
 
-3. **提交修改**
-
-   用户需要将修改后的文件提交到他们 fork 的仓库中，GitHub Actions 将根据定时计划开始运行监控任务。
-
 ### 运行和监控
 
 - GitHub Actions 将按照设定的计划（每20分钟一次）运行 `check_vless.yml` 中定义的任务。
