@@ -57,7 +57,7 @@ for server in servers:
     try:
         res = requests.get(weburl, timeout=30)
         print(res.status_code)
-        # summary_message = f"{weburl} 上的服务正在运行，状态码：{res.status_code}"
+        summary_message = f"{weburl} 上的服务正在运行，状态码：{res.status_code}"
     except requests.exceptions.ConnectionError:
         print("服务未运行")
 
