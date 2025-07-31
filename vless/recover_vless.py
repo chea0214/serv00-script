@@ -37,7 +37,7 @@ except json.JSONDecodeError:
     exit(1)
 
 # 初始化汇总消息
-summary_message = "serv00-vless 恢复操作结果：\n"
+summary_message = ""
 
 # 默认恢复命令
 default_restore_command = "cd ~/domains/$USER.serv00.net/vless && ./check_vless.sh"
@@ -71,4 +71,5 @@ for server in servers:
 
 # 发送汇总消息到 Telegram
 if summary_message != "":
+    summary_message = "serv00-vless 恢复操作结果：\n" + summary_message
     send_telegram_message(telegram_token, telegram_chat_id, summary_message)
