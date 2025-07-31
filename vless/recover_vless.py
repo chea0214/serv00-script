@@ -14,7 +14,7 @@ def send_telegram_message(token, chat_id, message):
 
     response = requests.post(telegram_url, json=telegram_payload)
     print(f"Telegram 请求状态码：{response.status_code}")
-    print(f"Telegram 请求返回内容：{response.text}")
+    # print(f"Telegram 请求返回内容：{response.text}")
 
     if response.status_code != 200:
         print("发送 Telegram 消息失败")
