@@ -7,8 +7,6 @@
 [serv00一键部署vless节点](https://youtu.be/QnlzpvDl_mo)
 如果不是看以上视频部署的，可自行修改.github/workflows/check_vless.sh里面第31行命令
 
-**新人YouTube希望大家点个Star🌟🌟🌟支持下**
-
 ### 1，服务器准备
 1. **您的服务器需要安装并配置了 PM2，并且具有 SSH 连接凭据（用户名、密码或密钥）。**
   - Telegram Bot
