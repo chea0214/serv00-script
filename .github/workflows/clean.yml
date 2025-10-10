@@ -9,4 +9,4 @@ jobs:
     steps:
       - uses: Mattraks/delete-workflow-runs@v2
         with:
-          keep_minimum_runs: 5
+          keep_minimum_runs: 3
