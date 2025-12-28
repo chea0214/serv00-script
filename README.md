@@ -10,7 +10,6 @@
 ### 1，服务器准备
 1. **您的服务器需要安装并配置了 PM2，并且具有 SSH 连接凭据（用户名、密码或密钥）。**
   - Telegram Bot
-
 2. **创建一个 Telegram Bot 并获取其 API Token。**
   - 获取您的 Telegram 用户或群组的 Chat ID。
 3. **GitHub Secrets**
