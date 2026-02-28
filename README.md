@@ -1,5 +1,3 @@
-# serv00-script
-
 ## 恢复 vless 服务并发送 Telegram 通知
 
 ### 使用要求
